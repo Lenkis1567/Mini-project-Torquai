@@ -1,0 +1,6 @@
+{% if request.user.is_authenticated %}
+<!-- {{request.user.profile.first_name}} -->
+	<a aria-current="page" href="{% url 'user_profile_path' request.user.profile.id %}" >{{ request.user }} </a>|<a aria-current="page" href="{% url 'logout_path' %}"> LogOUT</a>
+{% else %}
+	<a aria-current="page" href="{% url 'register_path' %}" >Register </a>|<a aria-current="page" href="{% url 'login_path' %}"> Login</a>
+{% endif %}
