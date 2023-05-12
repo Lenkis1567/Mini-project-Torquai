@@ -8,5 +8,5 @@ admin.site.register(RoomType)
 admin.site.register(AdultsCount)
 admin.site.register(Booking)
 admin.site.register(Rooms)
-admin.site.register(RommPhoto)
+admin.site.register(RoomPhoto)
 

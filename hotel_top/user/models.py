@@ -29,6 +29,13 @@ class Rooms(models.Model):
     quantity       = models.IntegerField(default=0)
     def __str__(self) -> str:
         return self.type.type + ":" + self.adults.count
+    
+    def main_photo(self):
+        photos = self.r_photo.all().filter(main_photo=True)
+        if photos:
+            return photos[0]
+        return []
+
 
 class Booking(models.Model):
     room           = models.ForeignKey(Rooms, on_delete=models.DO_NOTHING)
@@ -40,8 +47,10 @@ class Booking(models.Model):
         defferense = self.date_end - self.date_beginning
         return f"Booking from {self.date_beginning} for {defferense.days} days"
 
-class RommPhoto(models.Model):
-    room           = models.ForeignKey(Rooms,on_delete=models.DO_NOTHING)
+class RoomPhoto(models.Model):
+    room           = models.ForeignKey(Rooms,on_delete=models.DO_NOTHING,related_name='r_photo')
     photo          = models.ImageField(upload_to="photos/%Y/%m/%d/")
+    main_photo     = models.BooleanField(default=False)
     def __str__(self) -> str:
         return f"Photo for {self.room}"
+    
