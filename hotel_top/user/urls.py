@@ -16,9 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from .views import main_page
+from .views import main_page, look_for_free
 
 urlpatterns = [
-    path('', main_page, name = 'main_page_path'),
+    path(''       , main_page    , name = 'main_page_path'),
+    path('search/', look_for_free, name = 'search_path'),
     
 ]
