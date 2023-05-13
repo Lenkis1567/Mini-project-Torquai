@@ -1,0 +1,50 @@
+ {% extends 'partials/navbar.html' %}
+ {% load bootstrap4 %}
+ {% load crispy_forms_tags %}
+ 
+ {% block content_top%}
+<div class="container">
+	<h1>{{title}}</h1>
+  <ul>
+{% endblock%}
+
+{% block content %}
+<div class="row">
+    <div class="card col-3">
+      <form action="" method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit"  class="btn btn-primary g-2">Search</button>
+      </form>
+    </div>
+</div>
+<h1>Rooms</h1>
+{% if not no_rooms %}
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Room type</th>
+        <th>Number of adults</th>
+        <th>Room photo</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in room_set %}
+      <tr>
+        <td>{{r.type}}</td>
+        <td>{{r.adults}}</td>
+        <td><img src="/media/{{r.main_photo.photo}}" alt="no" style="width: 200px;"></td>
+      </tr>
+     {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <h1>There are no rooms matching your search criteria.</h1>
+  <h1>Please change your settings and search again.</h1>
+{% endif %}
+{% endblock %}
+
+{% block content_bottom%}
+</div>
+</div>
+ {% endblock%}
