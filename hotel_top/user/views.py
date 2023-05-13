@@ -31,12 +31,15 @@ def look_for_free(request):
             room_set = [r for r in room_set if r.is_free(d_from, d_to)]
 
             print (f'--------Room set: {room_set}')
+            no_rooms = True if len(room_set) == 0 else False
+
             
         else:
             f = LookForFreeForm()
     else:
         f = LookForFreeForm()
         room_set = Rooms.objects.all()
+        no_rooms = False
 
     title='Search page'
     context={}
@@ -44,4 +47,5 @@ def look_for_free(request):
     context['title']         = title
     context['form']          = f
     context['room_set']      = room_set
+    context['no_rooms']      = no_rooms
     return render(request,'user/room_search.html',context)
