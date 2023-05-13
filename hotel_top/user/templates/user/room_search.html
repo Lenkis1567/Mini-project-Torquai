@@ -12,6 +12,7 @@
 <div class="row">
     <div class="card col-3">
       <form action="" method="post">
+        {% csrf_token %}
         {{ form|crispy }}
         <button type="submit"  class="btn btn-primary g-2">Search</button>
       </form>

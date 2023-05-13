@@ -2,6 +2,7 @@ from .models import Rooms
 from utils import *
 from django.shortcuts import render
 from .forms import LookForFreeForm
+from datetime import datetime
 
 # Create your views here.
 
@@ -13,15 +14,34 @@ def main_page(request):
     return render(request,'user/homepage.html',context)
 
 def look_for_free(request):
+    if request.method == 'POST':
+        p_data = request.POST
+        f = LookForFreeForm(p_data)
+        if f.is_valid:
+            # print (f'Тип данных из поля Adults:{type(p_data["adults"])}, значение: {p_data["adults"]}')
+            # print (f'Тип данных из поля дата:{type(p_data["type"])}, значение: {p_data["type"] == None}')
+            # print (f'Тип данных из поля дата:{type(p_data["date_from"])}, значение: {p_data["date_from"]}')
 
-    f = LookForFreeForm()
+            room_set = Rooms.objects.all()
+            room_set = room_set.filter(adults=int(p_data["adults"])) if p_data["adults"] !='' else room_set
+            room_set = room_set.filter(type=int(p_data["type"])) if p_data["type"] !='' else room_set
+            
+            d_from = datetime.strptime(p_data["date_from"], "%Y-%m-%d")
+            d_to = datetime.strptime(p_data["date_to"], "%Y-%m-%d")
+            room_set = [r for r in room_set if r.is_free(d_from, d_to)]
+
+            print (f'--------Room set: {room_set}')
+            
+        else:
+            f = LookForFreeForm()
+    else:
+        f = LookForFreeForm()
+        room_set = Rooms.objects.all()
+
     title='Search page'
-    room_set = Rooms.objects.all()
-    for r in room_set:
-        print (r.r_photo.all().filter(main_photo=True))
     context={}
     context['menu']          = menu
-    context['title'] = title
-    context['form'] = f
-    context['room_set']=room_set
+    context['title']         = title
+    context['form']          = f
+    context['room_set']      = room_set
     return render(request,'user/room_search.html',context)
