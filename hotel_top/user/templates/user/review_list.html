@@ -16,7 +16,7 @@
       <div class="text-center">
         <i class="far fa-file-alt fa-4x mb-3 text-primary"></i>
         <p>
-          <strong>Your opinion matters!</strong>
+          <strong>PLease, if you stayed here, share your opinion on our hotel</strong>
         </p>
       </div>
      
@@ -38,13 +38,13 @@
 
 {%for i in client_reviews%}
 <div class="card" style="width: 16rem;">
-  <img src="/static/reviews.jpg" class="card-img-top" alt="...">
+  <img src="/static/reviews.jpg" class="card-img-top " alt="...">
   <div class="card-body">
     <p class="card-text">{{i.text}}</p>
   </div>
 </div>
 {%endfor%}
-
+</div>
 
 {% endblock %}
 
