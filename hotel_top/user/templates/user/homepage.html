@@ -1,18 +1,16 @@
  {% extends 'partials/navbar.html' %}
  
- {% block content%}
+{% block content_top%}
 <div class="container">
 	<h1>{{title}}</h1>
-  <ul>
-    {% if messages %}
-       <p>System message:</p>
-      {% for message in messages %}
-        <li> {{message}} </li>
-      {% endfor %}
-    {% endif %}
-  </ul>
 	<div class="row">
-*******************************
-	</div>
+{% endblock%}
+
+{% block content%}
+    *******************************
+{% endblock%}
+
+{% block content_bottom%}
+</div>
 </div>
  {% endblock%}

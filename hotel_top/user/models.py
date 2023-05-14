@@ -2,6 +2,7 @@ from datetime import datetime
 from math import trunc
 from django.db import models
 from django.db.models import Q
+from django.forms import BooleanField
 
 # Create your models here.
 class Review (models.Model):
@@ -68,7 +69,8 @@ class Booking(models.Model):
     client         = models.IntegerField(null=True,blank=True)
     name           = models.CharField(max_length=100,blank=True,null=True)
     email          = models.EmailField(blank=True,null=True) 
-    paid           = models.BooleanField()
+    paid           = models.BooleanField(default=False)
+    canceled       = models.BooleanField(default=False)
     def __str__(self) -> str:
         defferense = self.date_end - self.date_beginning
         # return f"Booking room {self.room} from {self.date_beginning} for {defferense.days} days"

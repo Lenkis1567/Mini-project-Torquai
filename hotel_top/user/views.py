@@ -3,6 +3,7 @@ from utils import *
 from django.shortcuts import render, redirect
 from .forms import LookForFreeForm, ReservationConfirmationForm
 from datetime import datetime
+from django.contrib import messages
 
 # Create your views here.
 
@@ -36,6 +37,8 @@ def look_for_free(request):
 
             print (f'--------Room set: {room_set}')
             no_rooms = True if len(room_set) == 0 else False
+            reservaton = True
+
         else:
             f = LookForFreeForm()
         # else:
@@ -52,6 +55,7 @@ def look_for_free(request):
         transit = {'date_from':date_from, 'date_to':date_to}
         room_set = Rooms.objects.all()
         no_rooms = False
+        reservaton = False
 
     title='Search page'
     context={}
@@ -61,6 +65,7 @@ def look_for_free(request):
     context['room_set']      = room_set
     context['transit']       = transit
     context['no_rooms']      = no_rooms
+    context['reservaton']    = reservaton
     return render(request,'user/room_search.html',context)
 
 
@@ -86,6 +91,7 @@ def reservation(request):
                     paid           = False
                     )
                 b.save()
+                messages.success (request,f'Your reservation has been confirmed. The confirmation numder: {b.pk}')
                 return redirect('main_page_path')
             else:
                 f = ReservationConfirmationForm(request.POST)
