@@ -1,5 +1,9 @@
  {% extends 'partials/navbar.html' %}
- 
+ {% block content_top%}
+<div class="container">
+  <h1>{{title}}</h1>
+{% endblock%}
+
  {% block content%}
 <div class="container">
 	<h1>{{title}}</h1>

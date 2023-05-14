@@ -18,7 +18,8 @@
         <th scope="col">Price</th>
         <th scope="col">Date beginning</th>
         <th scope="col">Date end</th>
-        <th scope="col">Client</th>
+        <th scope="col">Client name</th>
+        <th scope="col">Client mail</th>
         <th scope="col">Paid</th>
         <th scope="col">Cancel</th>
 
@@ -32,13 +33,17 @@
             <td>{{i.room.price}} </td>
             <td>{{i.date_beginning}}</td>
             <td>{{i.date_end}}</td>
-            <td>{{i.client}}</td>
+            <td>{{i.name}}</td>
+            <td>{{i.email}}</td>
             <td>{{i.paid}}</td>
             <td><form action="#" method="post">
                 {% csrf_token %}
-                
-                <button type="submit" class="btn" value="{{i.pk}}" name="cancel">Cancel booking</button></td>
-         
+             {% if i.canceled == False %}
+             
+                <button type="submit" class="btn btn-warning" value="{{i.pk}}" name="cancel">Cancel booking</button></td>
+                {% else %}
+                <button type="submit" class="btn btn-secondary" value="{{i.pk}}" name="cancel">Canceled</button></td>
+                {%endif%}>
             </form>
             </td>
         </tr>

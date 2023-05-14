@@ -1,16 +1,11 @@
 {% extends 'partials/navbar.html' %}
  
-{% block content%}
+{% block content_top%}
 <div class="container">
-   <h1>{{title}}</h1>
-    <ul>
-    {% if messages %}
-      <p>System message:</p>
-     {% for message in messages %}
-       <li> {{message}} </li>
-     {% endfor %}
-    {% endif %}
-    </ul>
+  <h1>{{title}}</h1>
+{% endblock%}
+
+{% block content%}
 
 <table class="table">
     <thead>
@@ -31,7 +26,7 @@
          <form action="#" method="post">
             {% csrf_token %}
             
-            <button type="submit" class="btn" value="{{i.pk}}" name="mybtn">Done </button>
+            <button type="submit" class="btn btn-warning" value="{{i.pk}}" name="mybtn">Answered</button>
             </form>
             </td>
         </tr>
@@ -40,3 +35,7 @@
 </div>
 
 {% endblock%}
+{% block content_bottom%}
+</div>
+</div>
+ {% endblock%}

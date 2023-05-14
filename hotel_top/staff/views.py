@@ -27,6 +27,17 @@ def inquiries(request):
     return render(request,'staff/inquiries.html', context) 
 
 def booking_staff(request):
-    bookings_list=Booking.objects.all()
-    context={'bookings': bookings_list}
+    if request.method =="GET":
+        bookings_list=Booking.objects.all()
+        context={'bookings': bookings_list}
+
+    if request.method=="POST":
+        print(request, request.POST['cancel'])
+        booking_id=int(request.POST['cancel'])
+        book=Booking.objects.get(pk=booking_id)
+        book.canceled =True
+        book.save()
+        booking_list1= Booking.objects.all()
+        context={"bookings": booking_list1}
+
     return render(request,'staff/bookings.html', context) 
