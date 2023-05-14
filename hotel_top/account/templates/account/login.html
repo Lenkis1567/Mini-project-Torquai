@@ -1,0 +1,25 @@
+ {% extends 'partials/navbar.html' %}
+ {% load bootstrap4 %}
+ {% load crispy_forms_tags %}
+ 
+ {% block content_top%}
+<div class="container">
+	<h1>{{title}}</h1>
+  <ul>
+{% endblock%}
+
+{% block content %}
+<div class="col-4"></div>
+<div class="col-4">
+	<form action="" method="post">
+		{% csrf_token %}
+		{{form|crispy}}
+		<button class="btn btn-primary mt-3" type="submit">Login1</button>
+	</form>
+</div>
+{% endblock %}
+
+{% block content_bottom%}
+</div>
+</div>
+ {% endblock%}
