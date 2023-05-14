@@ -65,4 +65,10 @@ class ReservationConfirmationForm (forms.Form):
 class Reviewform(forms.Form):
     text = forms.CharField(max_length=100, label="Write what you think aout staying in the hotel")
     email = forms.EmailField( label="Enter your e-mail")
-    
+
+class InquiryForm(models.Form):
+        class Meta:
+            model = Inquiry
+            fields = ['text', 'email']
+            
+

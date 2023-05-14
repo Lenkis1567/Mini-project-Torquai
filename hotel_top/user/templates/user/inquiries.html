@@ -9,9 +9,30 @@
 {% endblock%}
 
 {% block content %}
+<div class="my-2 my-sm-3 my-lg-4">
+    <div class="card">
+      <div class="modal-body">
+        <div class="text-center">
+          <i class="text-primary"></i>
+          <p>
+            <strong>If you have questions, write us</strong>
+          </p>
+        </div>
+       
+          <!-- Message input -->
+          <div class="form-outline mb-4">
+            <textarea class="form-control" id="form4Example3" rows="4"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="card-footer text-end ">
+        <form action="#" method="post">
+          {% csrf_token %}
+        <button type="submit" class="btn btn-warning" name="reviewbtn">Submit</button>
+      </div>
+    </div>
+  </div>
 
-     {% csrf_token %}
-     {{form|crispy}}
     
 
 {% endblock %}

@@ -1,4 +1,4 @@
-from .models import Rooms, Booking, Review
+from .models import Rooms, Booking, Review, Inquiry
 from utils import *
 from django.shortcuts import render, redirect
 from .forms import LookForFreeForm, ReservationConfirmationForm, Reviewform
@@ -141,3 +141,8 @@ def reviewslistview(request):
         reviews=Review.objects.all()
         context={"menu":menu, 'client_reviews':reviews}
         return render(request,'user/review_list.html',context)
+    
+class InquiryView(DataMixin, CreateView):
+    model = Inquiry
+    template_name = 'inquiry.html' 
+    context_object_name = 'inquiry'

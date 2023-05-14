@@ -23,5 +23,6 @@ urlpatterns = [
     path('search/', look_for_free, name = 'search_path'),
     path('reservation/', reservation, name = 'reservation_path'),
     path('reviews/', reviewslistview, name = 'client_reviews'),
+    path('inquiries/', )
     
 ]
