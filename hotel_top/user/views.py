@@ -137,7 +137,7 @@ def reviewslistview(request):
         return render(request,'user/review_list.html',context)
     if request.method == 'POST':
         new_review=request.POST['reviewbtn']
-        print(new_review)
+        print(new_review, request.POST)
         reviews=Review.objects.all()
         context={"menu":menu, 'client_reviews':reviews}
         return render(request,'user/review_list.html',context)
