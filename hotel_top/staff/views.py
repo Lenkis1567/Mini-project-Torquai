@@ -1,20 +1,30 @@
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from utils import *
 from user.models import *
+from django.contrib.auth.decorators import login_required #Dima
+from django.http import HttpResponseForbidden #Dima
 
 # Create your views here.
+@login_required #Dima
 def main_page_staff(request):
+    if not request.user.is_staff: #Dima
+        return HttpResponseForbidden ('Access is denied') #Dima
     # permission_classes = (IsStaff, )
     on_page_title='Home page'
     context={}
-    context['menu']          = menu
+    context['menu']          = staff_menu #Dima
     context['on_page_title'] = on_page_title
     return render(request,'staff/homepage.html',context) 
 
+@login_required #Dima
 def inquiries(request):
+    if not request.user.is_staff: #Dima
+        return HttpResponseForbidden ('Access is denied') #Dima
     if request.method =="GET":
         inq = Inquiry.objects.all()
         context={"inquiries": inq}
+        context['menu']          = staff_menu #Dima
     if request.method=="POST":
         print(request, request.POST['mybtn'])
         inq_id=int(request.POST['mybtn'])
@@ -23,13 +33,18 @@ def inquiries(request):
         inq.save()
         inq1= Inquiry.objects.all()
         context={"inquiries": inq1}
+        context['menu']          = staff_menu #Dima
 
     return render(request,'staff/inquiries.html', context) 
 
+@login_required #Dima
 def booking_staff(request):
+    if not request.user.is_staff: #Dima
+        return HttpResponseForbidden ('Access is denied') #Dima
     if request.method =="GET":
         bookings_list=Booking.objects.all()
         context={'bookings': bookings_list}
+        context['menu']          = staff_menu #Dima
 
     if request.method=="POST":
         print(request, request.POST['cancel'])
@@ -39,5 +54,6 @@ def booking_staff(request):
         book.save()
         booking_list1= Booking.objects.all()
         context={"bookings": booking_list1}
+        context['menu']          = staff_menu #Dima
 
     return render(request,'staff/bookings.html', context) 
