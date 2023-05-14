@@ -16,17 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from hotel import settings
-from django.conf.urls.static import static 
+from .views import RegisterUser, UserAuthentication, logout_user
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('user.urls')),
-    path('staff', include('staff.urls')),
-    path('account', include('account.urls')),
+    path('registry/', RegisterUser.as_view(),       name = 'registry_path'),
+    path('login/',    UserAuthentication.as_view(), name = 'login_path'),
+    path('logout/',   logout_user,                  name='logout_path'),
 
     
 ]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

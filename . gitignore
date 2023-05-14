@@ -1,0 +1,5 @@
+hotel_env
+*.pyc
+hotel_top/__pycache__/utils.cpython-311.pyc
+hotel_top/hotel/__pycache__/__init__.cpython-311.pyc
+hotel_top/hotel/__pycache__/urls.cpython-311.pyc
