@@ -1,3 +1,4 @@
+from os import name
 from django import forms
 from .models import *
 from datetime import date, timedelta
@@ -15,4 +16,20 @@ class LookForFreeForm(forms.ModelForm):
     class Meta:
         model = Rooms
         fields = ['adults', 'type']
+        
+class ReservationConfirmationForm (forms.Form):
+    name  = forms.CharField(max_length=100,
+                            label="Enter your first and last name",
+                            error_messages={
+                                'required':"This field is required",
+                                'error_messages':"Error in filling"
+														}
+                            )
+    email = forms.EmailField(
+                            label="Enter your e-mail",
+                            error_messages={
+                                'required':"This field is required",
+                                'error_messages':"Error in filling"
+														}
+                            )
         

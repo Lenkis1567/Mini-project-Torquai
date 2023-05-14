@@ -1,7 +1,7 @@
-from .models import Rooms
+from .models import Rooms, Booking
 from utils import *
-from django.shortcuts import render
-from .forms import LookForFreeForm
+from django.shortcuts import render, redirect
+from .forms import LookForFreeForm, ReservationConfirmationForm
 from datetime import datetime
 
 # Create your views here.
@@ -16,11 +16,15 @@ def main_page(request):
 def look_for_free(request):
     if request.method == 'POST':
         p_data = request.POST
+        # if p_data.get('search',False):
         f = LookForFreeForm(p_data)
         if f.is_valid:
             # print (f'Тип данных из поля Adults:{type(p_data["adults"])}, значение: {p_data["adults"]}')
             # print (f'Тип данных из поля дата:{type(p_data["type"])}, значение: {p_data["type"] == None}')
             # print (f'Тип данных из поля дата:{type(p_data["date_from"])}, значение: {p_data["date_from"]}')
+            date_from = p_data['date_from']
+            date_to   = p_data['date_to']
+            transit = {'date_from':date_from, 'date_to':date_to}
 
             room_set = Rooms.objects.all()
             room_set = room_set.filter(adults=int(p_data["adults"])) if p_data["adults"] !='' else room_set
@@ -32,12 +36,20 @@ def look_for_free(request):
 
             print (f'--------Room set: {room_set}')
             no_rooms = True if len(room_set) == 0 else False
-
-            
         else:
             f = LookForFreeForm()
+        # else:
+        #     request.session['room_id'] = p_data['reserv']
+        #     request.session['date_from'] = p_data['date_from']
+        #     request.session['date_to'] = p_data['date_to']
+        #     return redirect('reservation_path')
     else:
         f = LookForFreeForm()
+        a=f.is_valid()
+        date_from = f['date_from'].value().strftime('%Y-%m-%d')
+        date_to   = f['date_to'].value().strftime('%Y-%m-%d')
+        print (f'-------{type(date_from)}--{date_from}------')
+        transit = {'date_from':date_from, 'date_to':date_to}
         room_set = Rooms.objects.all()
         no_rooms = False
 
@@ -47,5 +59,57 @@ def look_for_free(request):
     context['title']         = title
     context['form']          = f
     context['room_set']      = room_set
+    context['transit']       = transit
     context['no_rooms']      = no_rooms
     return render(request,'user/room_search.html',context)
+
+
+def reservation(request):
+    context={}
+    if request.method == 'POST':
+        p_data=request.POST
+        if p_data.get('confirm',False):
+            print ('+++++++++++Confirmation reservation',p_data)
+            f=ReservationConfirmationForm(request.POST)
+            room = Rooms.objects.get(pk=p_data['confirm'])
+            date_from = datetime.strptime(p_data["date_from"], "%Y-%m-%d")
+            date_to = datetime.strptime(p_data["date_to"], "%Y-%m-%d")
+            if f.is_valid:
+                name = p_data['name']
+                email = p_data['email']
+                b = Booking(
+                    room           =room, 
+                    date_beginning =date_from,
+                    date_end       = date_to,
+                    name           = name,
+                    email          = email,
+                    paid           = False
+                    )
+                b.save()
+                return redirect('main_page_path')
+            else:
+                f = ReservationConfirmationForm(request.POST)
+                context['room']          = room
+                context['room_pk']       = room.pk
+                context['date_from']     = date_from.strftime('%Y-%m-%d')
+                context['date_to']       = date_to.strftime('%Y-%m-%d')
+                context['form']          = f
+        else:
+            p_data = request.POST
+            print(f'+++++ Резервирование {p_data}')
+            room = Rooms.objects.get(pk=int(p_data['reserv']))
+            print(room)
+            date_from = datetime.strptime(p_data["date_from"], "%Y-%m-%d")
+            date_to = datetime.strptime(p_data["date_to"], "%Y-%m-%d")
+            f = ReservationConfirmationForm()
+            context['room']          = room
+            context['room_pk']       = room.pk
+            context['date_from']     = date_from.strftime('%Y-%m-%d')
+            context['date_to']       = date_to.strftime('%Y-%m-%d')
+            context['form']          = f
+    else:
+        context['get'] = True
+    title = 'Booking confirmation'
+    context['menu']          = menu
+    context['title']         = title
+    return render(request,'user/reservetion.html',context)

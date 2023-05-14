@@ -1,0 +1,43 @@
+ {% extends 'partials/navbar.html' %}
+ {% load bootstrap4 %}
+ {% load crispy_forms_tags %}
+ 
+ {% block content_top%}
+<div class="container">
+	<h1>{{title}}</h1>
+  <ul>
+{% endblock%}
+
+{% block content %}
+<div class="col-4"></div>
+<div class="card text-center col-4">
+  <h2 class="card-header">
+    Room: {{ room }}
+  </h2>
+  <div class="card-body">
+    <h5 class="card-title">Date from: {{ date_from }}</h5>
+    <h5 class="card-title">Date to: {{ date_to }}</h5>
+    <p class="card-text">To proceed with the reservation, you must enter your name and email address</p>
+    <form class="form" action="" method="post">
+      {% csrf_token %}
+      {{form|crispy}}
+      <input type="hidden" name="date_from" value="{{ date_from }}">
+      <input type="hidden" name="date_to" value="{{ date_to }}">
+      <button class="btn btn-primary" type="submit" name="confirm" value="{{ room_pk }}">Сonfirmation</button>
+      <a href="{% url 'search_path' %}" class="btn btn-primary">Cansel</a>
+    </form>
+  </div>
+  <div class="card-footer text-body-secondary">
+    2 days ago
+  </div>
+</div>
+Room: {{ room }} <br>
+Date from: {{ date_from }} <br>
+Date to: {{ date_to }} <br>
+
+{% endblock %}
+
+{% block content_bottom%}
+</div>
+</div>
+ {% endblock%}

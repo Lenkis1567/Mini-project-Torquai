@@ -1,4 +1,5 @@
 from datetime import datetime
+from math import trunc
 from django.db import models
 from django.db.models import Q
 
@@ -65,6 +66,8 @@ class Booking(models.Model):
     date_beginning = models.DateField()
     date_end       = models.DateField()
     client         = models.IntegerField(null=True,blank=True)
+    name           = models.CharField(max_length=100,blank=True,null=True)
+    email          = models.EmailField(blank=True,null=True) 
     paid           = models.BooleanField()
     def __str__(self) -> str:
         defferense = self.date_end - self.date_beginning

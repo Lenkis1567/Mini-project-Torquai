@@ -14,7 +14,7 @@
       <form action="" method="post">
         {% csrf_token %}
         {{ form|crispy }}
-        <button type="submit"  class="btn btn-primary g-2">Search</button>
+        <button type="submit" class="btn btn-primary g-2" name="search" value="1">Search</button>
       </form>
     </div>
 </div>
@@ -34,6 +34,14 @@
         <td>{{r.type}}</td>
         <td>{{r.adults}}</td>
         <td><img src="/media/{{r.main_photo.photo}}" alt="no" style="width: 200px;"></td>
+        <td>
+          <form action="{% url 'reservation_path' %}" method="post">
+            {% csrf_token %}
+            <button type="submit"  class="btn btn-primary g-2" name="reserv" value="{{r.pk}}" >Reserve</button>
+            <input type="hidden" value="{{transit.date_from}}" name="date_from">
+            <input type="hidden" value="{{transit.date_to}}" name="date_to">
+          </form>
+        </td>
       </tr>
      {% endfor %}
     </tbody>
