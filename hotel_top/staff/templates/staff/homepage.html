@@ -3,16 +3,21 @@
  {% block content%}
 <div class="container">
 	<h1>{{title}}</h1>
-  <ul>
+   <ul>
     {% if messages %}
        <p>System message:</p>
       {% for message in messages %}
         <li> {{message}} </li>
       {% endfor %}
     {% endif %}
-  </ul>
+   </ul>
 	<div class="row">
 *******************************
+<div class="blocks row justify-content-center my-2 my-sm-3 my-lg-4">
+  <p class="fs-3"> <a href="/reviews"> Reviews </a></p>
+  <p class="fs-3"> <a href="/staff/bookings"> Bookings</a></p>
+    <p class="fs-3"> <a href="/staff/inquiries"> Inquiries</a></p>
+  </div>
 	</div>
 </div>
  {% endblock%}

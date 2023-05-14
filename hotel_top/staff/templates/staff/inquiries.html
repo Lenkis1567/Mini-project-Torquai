@@ -1,0 +1,42 @@
+{% extends 'partials/navbar.html' %}
+ 
+{% block content%}
+<div class="container">
+   <h1>{{title}}</h1>
+    <ul>
+    {% if messages %}
+      <p>System message:</p>
+     {% for message in messages %}
+       <li> {{message}} </li>
+     {% endfor %}
+    {% endif %}
+    </ul>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Message</th>
+        <th scope="col">Mail</th>
+        <th scope="col">Answered</th>
+        <th scope="col">Change</th>
+      </tr>
+    </thead>
+    <tbody>
+   {% for i in inquiries %}
+        <tr>
+            <td>{{i.text}} </td>
+            <td>{{i.email}}</td>
+            <td>{{i.is_answered}}</td>
+            <td> 
+         <form action="#" method="post">
+            {% csrf_token %}
+            
+            <button type="submit" class="btn" value="{{i.pk}}" name="mybtn">Done </button>
+            </form>
+            </td>
+        </tr>
+        {% endfor %}
+
+</div>
+
+{% endblock%}

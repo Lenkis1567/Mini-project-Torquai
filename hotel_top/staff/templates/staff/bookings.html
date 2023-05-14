@@ -1,0 +1,50 @@
+{% extends 'partials/navbar.html' %}
+ 
+{% block content%}
+<div class="container">
+   <h1>{{title}}</h1>
+    <ul>
+    {% if messages %}
+      <p>System message:</p>
+     {% for message in messages %}
+       <li> {{message}} </li>
+     {% endfor %}
+    {% endif %}
+    </ul>
+******************************
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Room</th>
+        <th scope="col">People</th>
+        <th scope="col">Price</th>
+        <th scope="col">Date beginning</th>
+        <th scope="col">Date end</th>
+        <th scope="col">Client</th>
+        <th scope="col">Paid</th>
+        <th scope="col">Cancel</th>
+
+      </tr>
+    </thead>
+    <tbody>
+   {% for i in bookings %}
+        <tr>
+            <td>{{i.room.type }} </td>
+            <td>{{i.room.adults }} </td>
+            <td>{{i.room.price}} </td>
+            <td>{{i.date_beginning}}</td>
+            <td>{{i.date_end}}</td>
+            <td>{{i.client}}</td>
+            <td>{{i.paid}}</td>
+            <td><form action="#" method="post">
+                {% csrf_token %}
+                
+                <button type="submit" class="btn" value="{{i.pk}}" name="cancel">Cancel booking</button></td>
+         
+            </form>
+            </td>
+        </tr>
+        {% endfor %}
+
+{% endblock%}  
