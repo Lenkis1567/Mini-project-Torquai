@@ -1,0 +1,19 @@
+{% extends 'partials/navbar.html' %}
+{% load bootstrap4 %}
+{% load crispy_forms_tags %}
+
+{% block content_top%}
+<div class="container">
+   <h1>{{title}}</h1>
+ <ul>
+{% endblock%}
+
+{% block content %}
+{{form}}
+
+{% endblock %}
+
+{% block content_bottom%}
+</div>
+</div>
+{% endblock%}

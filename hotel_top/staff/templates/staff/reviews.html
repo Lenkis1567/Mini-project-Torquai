@@ -1,0 +1,42 @@
+{% extends 'partials/navbar.html' %}
+ 
+{% block content_top%}
+<div class="container">
+  <h1>{{title}}</h1>
+{% endblock%}
+
+{% block content%}
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Message</th>
+        <th scope="col">Mail</th>
+        <th scope="col">Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+   {% for i in reviews %}
+        <tr>
+            <td>{{i.text}} </td>
+            <td>{{i.email}}</td>
+            <td>{{i.is_answered}}</td>
+            <td> 
+            <form method="post" action="{% url 'review-delete' i.pk %}">
+            {% csrf_token %}
+            
+            <button type="submit" class="btn btn-warning" value="{{i.pk}}" name="delbtn">Delete</button>
+           
+
+            </form>
+            </td>
+        </tr>
+        {% endfor %}
+
+</div>
+
+{% endblock%}
+{% block content_bottom%}
+</div>
+</div>
+ {% endblock%}
