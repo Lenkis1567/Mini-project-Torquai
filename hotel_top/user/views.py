@@ -1,7 +1,7 @@
 from .models import Rooms, Booking, Review, Inquiry
 from utils import *
 from django.shortcuts import render, redirect
-from .forms import LookForFreeForm, ReservationConfirmationForm, Reviewform
+from .forms import LookForFreeForm, ReservationConfirmationForm, Reviewform, InquiryForm
 from datetime import datetime
 from django.contrib import messages
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -142,7 +142,7 @@ def reviewslistview(request):
         context={"menu":menu, 'client_reviews':reviews}
         return render(request,'user/review_list.html',context)
     
-class InquiryView(DataMixin, CreateView):
-    model = Inquiry
-    template_name = 'inquiry.html' 
-    context_object_name = 'inquiry'
+def inquiryview(request):
+    form=InquiryForm()
+    context={"menu":menu, 'form':form}
+    return render(request,'user/inquiries.html',context)
