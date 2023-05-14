@@ -1,0 +1,65 @@
+{% extends 'partials/navbar.html' %}
+{% load bootstrap4 %}
+{% load crispy_forms_tags %}
+
+{% block content_top%}
+<div class="container">
+   <h1>{{title}}</h1>
+ <ul>
+{% endblock%}
+
+{% block content %}
+
+<div class="mx-1 mx-sm-auto">
+  <div class="card">
+    <div class="modal-body">
+      <div class="text-center">
+        <i class="far fa-file-alt fa-4x mb-3 text-primary"></i>
+        <p>
+          <strong>Your opinion matters!</strong>
+        </p>
+      </div>
+     
+        <!-- Message input -->
+        <div class="form-outline mb-4">
+          <textarea class="form-control" id="form4Example3" rows="4"></textarea>
+        </div>
+      </form>
+    </div>
+    <div class="card-footer text-end">
+      <form action="#" method="post">
+        {% csrf_token %}
+      <button type="submit" class="btn btn-warning" name="reviewbtn">Submit</button>
+    </div>
+  </div>
+</div>
+
+
+
+{%for i in client_reviews%}
+<div class="card" style="width: 16rem;">
+  <img src="/static/reviews.jpg" class="card-img-top" alt="...">
+  <div class="card-body">
+    <p class="card-text">{{i.text}}</p>
+  </div>
+</div>
+{%endfor%}
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+====================================================
+{% block content_bottom%}
+</div>
+</div>
+{% endblock%}

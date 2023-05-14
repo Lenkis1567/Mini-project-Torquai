@@ -60,4 +60,9 @@ class ReservationConfirmationForm (forms.Form):
                                 'error_messages':"Error in filling"
 														}
                             )
-        
+
+
+class Reviewform(forms.Form):
+    text = forms.CharField(max_length=100, label="Write what you think aout staying in the hotel")
+    email = forms.EmailField( label="Enter your e-mail")
+    

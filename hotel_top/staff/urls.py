@@ -11,5 +11,4 @@ urlpatterns = [
     path('/bookings', booking_staff, name='booking_staff'),
     path('/reviews', ReviewsStaffListView.as_view(), name='reviews_staff'),
     path('/reviews/<int:pk>/delete/', ReviewDeleteView.as_view(), name='review-delete'),
-    # path('/reviews/cl', ReviewsListView.as_view(), name='client_reviews'),
 ]

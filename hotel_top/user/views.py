@@ -1,9 +1,10 @@
-from .models import Rooms, Booking
+from .models import Rooms, Booking, Review
 from utils import *
 from django.shortcuts import render, redirect
-from .forms import LookForFreeForm, ReservationConfirmationForm
+from .forms import LookForFreeForm, ReservationConfirmationForm, Reviewform
 from datetime import datetime
 from django.contrib import messages
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 # Create your views here.
 
@@ -119,3 +120,24 @@ def reservation(request):
     context['menu']          = menu
     context['title']         = title
     return render(request,'user/reservetion.html',context)
+
+# class ReviewsListView(DataMixin, ListView):
+#     model = Review
+#     template_name = 'review_list.html' 
+#     context_object_name = 'client_reviews'
+#     form=Reviewform()
+#     context['form'] = form
+#     context['menu'] = menu
+   
+def reviewslistview(request):
+    if request.method == 'GET':
+        reviews=Review.objects.all()
+        reviewform=Reviewform()
+        context={"menu":menu, 'client_reviews':reviews, 'form': reviewform}
+        return render(request,'user/review_list.html',context)
+    if request.method == 'POST':
+        new_review=request.POST['reviewbtn']
+        print(new_review)
+        reviews=Review.objects.all()
+        context={"menu":menu, 'client_reviews':reviews}
+        return render(request,'user/review_list.html',context)
