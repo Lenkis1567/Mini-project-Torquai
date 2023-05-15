@@ -57,3 +57,14 @@ def booking_staff(request):
         context['menu']          = staff_menu #Dima
 
     return render(request,'staff/bookings.html', context) 
+
+class ReviewsStaffListView(DataMixin, ListView):
+    model = Review
+    template_name = 'staff/reviews.html' 
+    context_object_name = 'reviews'
+    
+
+class ReviewDeleteView(DataMixin, DeleteView):
+    model = Review
+    template_name = 'staff/reviews.html'
+    success_url = reverse_lazy('reviews_staff')
