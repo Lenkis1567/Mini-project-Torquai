@@ -135,12 +135,12 @@ def reviews(request):
     if request.method == 'POST':
         p_data = request.POST
         f = ReviewCreateForm(p_data)
-        if f.is_valid:
+        if f.is_valid():
             f.save()
     f = ReviewCreateForm()
     context={}
     rewiews = Review.objects.all()
-    title = 'Please tell us your review.'
+    title = ''
     context['menu'] = menu
     context['form'] = f
     context['rewiews'] = rewiews
@@ -150,7 +150,7 @@ def reviews(request):
 class InquiryCreate(DataMixin, CreateView):
     model = Inquiry
     fields = ['text']
-    template_name = 'user/inquiries.html'
+    template_name = 'user/inquiry.html'
     success_url = reverse_lazy('main_page_path')
 
     def form_valid(self, form: BaseModelForm):
@@ -160,6 +160,6 @@ class InquiryCreate(DataMixin, CreateView):
         return super().form_valid(form)
     def get_context_data(self, *,object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        c_def = self.get_user_context(title = "Please ask your question.")
+        c_def = self.get_user_context(title = "")
         context = dict(list(context.items()) + list(c_def.items()))
         return context

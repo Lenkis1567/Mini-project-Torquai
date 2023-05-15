@@ -9,8 +9,8 @@
 {% endblock%}
 
 {% block content %}
-
-<div class="my-2 my-sm-3 my-lg-4">
+<div class = "col-3"> </div>
+<div class="my-2 my-sm-3 my-lg-4 col-6">
   <div class="card">
     <div class="modal-body">
       <div class="text-center">
@@ -21,24 +21,26 @@
       </div>
      
         <!-- Message input -->
-        <div class="form-outline mb-4">
-          <textarea class="form-control" id="form4Example3" rows="4"></textarea>
-        </div>
-      </form>
-    </div>
-    <div class="card-footer text-end ">
-      <form action="#" method="post">
-        {% csrf_token %}
-      <button type="submit" class="btn btn-warning" name="reviewbtn">Submit</button>
+        <div class="form-outline mb-4 ">
+          <form action="" method="post">
+            {% csrf_token %}
+            {{form|crispy}}    <div class="card-footer text-end ">
+            <button type="submit" class="btn btn-warning" name="reviewbtn">Submit</button></div>
+          </form>
+          </div>
+
     </div>
   </div>
 </div>
 
-{%for i in client_reviews%}
-<div class="card col px-md-5 shadow p-3 mb-5 bg-white rounded" style="width: 16rem">
-  <img src="/static/reviews.jpg" class="card-img-top " alt="reviews">
-  <div class="card-body">
-    <p class="card-text">{{i.text}}</p>
+{%for i in rewiews%}
+<div class="row">
+  <div class="col-3"></div>
+  <div class="card col-6 px-md-5 shadow p-3 mb-5 bg-white rounded" >
+
+    <div class="card-body">
+      <p class="card-text">{{i.text}}</p>
+    </div>
   </div>
 </div>
 {%endfor%}
