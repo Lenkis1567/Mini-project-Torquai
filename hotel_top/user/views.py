@@ -21,7 +21,7 @@ def main_page(request):
     on_page_title='Home page'
     context={}
     context['menu']          = menu
-    context['on_page_title'] = on_page_title
+    context['on_page_title'] = 'on_page_title'
     return render(request,'user/homepage.html',context)
 
 def look_for_free(request):
@@ -67,7 +67,7 @@ def look_for_free(request):
         no_rooms = False
         reservaton = False
 
-    title='Search page'
+    title=''
     context={}
     context['menu']          = menu
     context['title']         = title
@@ -101,7 +101,7 @@ def reservation(request):
                     paid           = False
                     )
                 b.save()
-                messages.success (request,f'Your reservation has been confirmed. The confirmation numder: {b.pk}')
+                messages.success (request,f'Your reservation has been confirmed. The confirmation number: {b.pk}')
                 return redirect('main_page_path')
             else:
                 f = ReservationConfirmationForm(request.POST)

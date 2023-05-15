@@ -22,9 +22,9 @@
 
 {% block message%}
     {% if messages %}
-       <p>System message:</p>
+<!--       <p>System message:</p>--> 
       {% for message in messages %}
-        <li> {{message}} </li>
+        <li> <p class="fs-3">{{message}} </p></li>
       {% endfor %}
     {% endif %}
   </ul>
