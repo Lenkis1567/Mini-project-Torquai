@@ -1,4 +1,5 @@
 from os import name
+from typing import Any, Dict
 from django import forms
 from .models import *
 from datetime import date, timedelta
@@ -21,7 +22,6 @@ class LookForFreeForm(forms.ModelForm):
     def clean_date_from(self):
         date = self.cleaned_data.get('date_from')
         print (f"date:{date}, type: {type(date)}, datetime.today() {type(datetime.today().date())}")
-        # date = datetime.strptime(date["date_from"], "%Y-%m-%d")
         if date < datetime.today().date():
             print ('The start date cannot be less than the current one')
             raise forms.ValidationError("The start date cannot be less than the current one")
@@ -61,3 +61,22 @@ class ReservationConfirmationForm (forms.Form):
 														}
                             )
         
+class ReviewCreateForm(forms.ModelForm):
+    email = forms.EmailField(
+                            label="Enter your e-mail",
+                            error_messages={
+                                'required':"This field is required",
+                                'error_messages':"Error in filling"
+                                }
+                            )
+    class Meta:
+        model = Review
+        fields =['text', 'email']
+
+    # def clean_email(self):
+    #     email = self.cleaned_data.get('email')
+    #     print(f'========{email} ----- {type(email)}')
+    #     if email == None:
+    #         raise forms.ValidationError("No e-mail. Enter")
+    #     return email
+    

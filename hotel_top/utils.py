@@ -1,7 +1,7 @@
-menu = [{'title': "Home", 'url_name': 'main_page_path', 'for_s_user':False},
-        {'title': "Search the room", 'url_name': 'search_path', 'for_s_user':False},
-    #    {'title': "Reviews", 'url_name': 'reviews', 'for_s_user':True},
-    #    {'title': "Favorites", 'url_name': 'inquiries', 'for_s_user':False}
+menu = [{'title': "Home",            'url_name': 'main_page_path', 'for_s_user':False},
+        {'title': "Search the room", 'url_name': 'search_path',    'for_s_user':False},
+        {'title': "Reviews",         'url_name': 'review_path',    'for_s_user':False},
+        {'title': "Inquiry",         'url_name': 'inquiry_path',    'for_s_user':False}
         ]
 
 staff_menu = [{'title': "Staff Home", 'url_name': 'main_page_staff', 'for_s_user':False},

@@ -1,9 +1,19 @@
-from .models import Rooms, Booking
-from utils import *
-from django.shortcuts import render, redirect
-from .forms import LookForFreeForm, ReservationConfirmationForm
-from datetime import datetime
-from django.contrib import messages
+from dataclasses import fields
+from re import template
+
+from django.forms.models            import BaseModelForm
+from django.http                    import HttpResponse, request
+from .models                        import Rooms, Booking, Review, Inquiry
+from utils                          import *
+from django.shortcuts               import render, redirect
+from .forms                         import LookForFreeForm, ReservationConfirmationForm, ReviewCreateForm
+from datetime                       import datetime
+from django.contrib                 import messages
+from django.views.generic           import CreateView
+from django.urls                    import reverse_lazy
+from django.contrib.auth.mixins     import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
 
@@ -119,3 +129,37 @@ def reservation(request):
     context['menu']          = menu
     context['title']         = title
     return render(request,'user/reservetion.html',context)
+
+@login_required
+def reviews(request):
+    if request.method == 'POST':
+        p_data = request.POST
+        f = ReviewCreateForm(p_data)
+        if f.is_valid:
+            f.save()
+    f = ReviewCreateForm()
+    context={}
+    rewiews = Review.objects.all()
+    title = 'Please tell us your review.'
+    context['menu'] = menu
+    context['form'] = f
+    context['rewiews'] = rewiews
+    context['title'] = title
+    return render(request,'user/review.html',context)
+
+class InquiryCreate(DataMixin, CreateView):
+    model = Inquiry
+    fields = ['text']
+    template_name = 'user/inquiry.html'
+    success_url = reverse_lazy('main_page_path')
+
+    def form_valid(self, form: BaseModelForm):
+        instence = form.save(commit=False)
+        instence.email=self.request.user.email
+        instence.save()
+        return super().form_valid(form)
+    def get_context_data(self, *,object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_user_context(title = "Please ask your question.")
+        context = dict(list(context.items()) + list(c_def.items()))
+        return context
