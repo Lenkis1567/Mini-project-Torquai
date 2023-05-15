@@ -3,17 +3,26 @@ from utils import *
 from user.models import *
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required 
+from django.http import HttpResponseForbidden 
 
 
+@login_required 
 def main_page_staff(request):
-    # permission_classes = (IsStaff, )
+    if not request.user.is_staff: 
+        return HttpResponseForbidden ('Access is denied') 
     on_page_title='Home page'
     context={}
     context['menu']          = menu_staff
     context['on_page_title'] = on_page_title
     return render(request,'staff/homepage.html',context) 
 
+
+
+@login_required 
 def inquiries(request):
+    if not request.user.is_staff: 
+        return HttpResponseForbidden ('Access is denied') 
     if request.method =="GET":
         inq = Inquiry.objects.all()
         context={"inquiries": inq, 'menu': menu_staff}
@@ -29,7 +38,10 @@ def inquiries(request):
 
     return render(request,'staff/inquiries.html', context) 
 
+@login_required
 def booking_staff(request):
+    if not request.user.is_staff: 
+        return HttpResponseForbidden ('Access is denied')
     if request.method =="GET":
         bookings_list=Booking.objects.all()
         context={'bookings': bookings_list, 'menu': menu_staff}
