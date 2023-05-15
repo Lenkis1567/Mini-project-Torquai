@@ -2,8 +2,8 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from utils import *
 from user.models import *
-from django.contrib.auth.decorators import login_required #Dima
-from django.http import HttpResponseForbidden #Dima
+from django.contrib.auth.decorators import login_required 
+from django.http import HttpResponseForbidden 
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
@@ -14,7 +14,7 @@ def main_page_staff(request):
         return HttpResponseForbidden ('Access is denied') 
     on_page_title='Home page'
     context={}
-    context['menu']          = staff_menu #Dima
+    context['menu']          = staff_menu 
     context['on_page_title'] = on_page_title
     return render(request,'staff/homepage.html',context) 
 
@@ -27,7 +27,7 @@ def inquiries(request):
     if request.method =="GET":
         inq = Inquiry.objects.all()
         context={"inquiries": inq}
-        context['menu']          = staff_menu #Dima
+        context['menu']          = staff_menu 
     if request.method=="POST":
         print(request, request.POST['mybtn'])
         inq_id=int(request.POST['mybtn'])
@@ -36,7 +36,7 @@ def inquiries(request):
         inq.save()
         inq1= Inquiry.objects.all()
         context={"inquiries": inq1}
-        context['menu']          = staff_menu #Dima
+        context['menu']          = staff_menu 
 
     return render(request,'staff/inquiries.html', context) 
 
@@ -47,7 +47,7 @@ def booking_staff(request):
     if request.method =="GET":
         bookings_list=Booking.objects.all()
         context={'bookings': bookings_list}
-        context['menu']          = staff_menu #Dima
+        context['menu']          = staff_menu 
 
     if request.method=="POST":
         print(request, request.POST['cancel'])
@@ -57,8 +57,7 @@ def booking_staff(request):
         book.save()
         booking_list1= Booking.objects.all()
         context={"bookings": booking_list1}
-        context['menu']          = staff_menu #Dima
-
+        context['menu']          = staff_menu
     return render(request,'staff/bookings.html', context) 
 
 class ReviewsStaffListView(DataMixin, ListView):
@@ -68,6 +67,7 @@ class ReviewsStaffListView(DataMixin, ListView):
     def get_context_data(self, *,object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         c_def = self.get_user_context(title = "")
+        context['menu']          = staff_menu
         context = dict(list(context.items()) + list(c_def.items()))
         return context
     

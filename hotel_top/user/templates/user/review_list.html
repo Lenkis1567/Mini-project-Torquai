@@ -21,22 +21,24 @@
       </div>
      
         <!-- Message input -->
-        <div class="form-outline mb-4 ">
+        <div class="form-outline mb-4">
           <form action="" method="post">
             {% csrf_token %}
-            {{form|crispy}}    <div class="card-footer text-end ">
-            <button type="submit" class="btn btn-warning" name="reviewbtn">Submit</button></div>
+            {{form|crispy}}    
+            <div class="card-footer text-end ">
+              <button type="submit" class="btn btn-secondary mt-3" name="reviewbtn">Submit</button>
+            </div>
           </form>
-          </div>
+        </div>
 
     </div>
   </div>
 </div>
-
+<p class="fs-3">Here are some reviews from our dear guests</p>
 {%for i in rewiews%}
 <div class="row">
-  <div class="col-3"></div>
-  <div class="card col-6 px-md-5 shadow p-3 mb-5 bg-white rounded" >
+  <div class="col-0"></div>
+  <div class="card col-8 px-md-5 shadow p-3 mb-5 bg-white rounded" >
 
     <div class="card-body">
       <p class="card-text">{{i.text}}</p>
