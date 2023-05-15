@@ -7,7 +7,7 @@ menu = [{'title': "Home",            'url_name': 'main_page_path', 'for_s_user':
 staff_menu = [{'title': "Staff Home", 'url_name': 'main_page_staff', 'for_s_user':False},
               {'title': "Inquiries",  'url_name': 'inquiries',       'for_s_user':False},
               {'title': "Bookings",   'url_name': 'booking_staff',   'for_s_user':False},
-    #          {'title': "Incoming inquiries", 'url_name': 'inquiries', 'for_s_user':False}
+        {'title': "Incoming inquiries", 'url_name': 'inquiries', 'for_s_user':False}
         ]
 class DataMixin:
     def get_user_context(self, **kwargs):

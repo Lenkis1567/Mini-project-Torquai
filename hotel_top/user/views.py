@@ -145,12 +145,12 @@ def reviews(request):
     context['form'] = f
     context['rewiews'] = rewiews
     context['title'] = title
-    return render(request,'user/review.html',context)
+    return render(request,'user/review_list.html',context)
 
 class InquiryCreate(DataMixin, CreateView):
     model = Inquiry
     fields = ['text']
-    template_name = 'user/inquiry.html'
+    template_name = 'user/inquiries.html'
     success_url = reverse_lazy('main_page_path')
 
     def form_valid(self, form: BaseModelForm):

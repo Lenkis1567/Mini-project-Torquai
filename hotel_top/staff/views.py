@@ -4,23 +4,26 @@ from utils import *
 from user.models import *
 from django.contrib.auth.decorators import login_required #Dima
 from django.http import HttpResponseForbidden #Dima
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
 
-# Create your views here.
-@login_required #Dima
+
+@login_required 
 def main_page_staff(request):
-    if not request.user.is_staff: #Dima
-        return HttpResponseForbidden ('Access is denied') #Dima
-    # permission_classes = (IsStaff, )
+    if not request.user.is_staff: 
+        return HttpResponseForbidden ('Access is denied') 
     on_page_title='Home page'
     context={}
     context['menu']          = staff_menu #Dima
     context['on_page_title'] = on_page_title
     return render(request,'staff/homepage.html',context) 
 
-@login_required #Dima
+
+
+@login_required 
 def inquiries(request):
-    if not request.user.is_staff: #Dima
-        return HttpResponseForbidden ('Access is denied') #Dima
+    if not request.user.is_staff: 
+        return HttpResponseForbidden ('Access is denied') 
     if request.method =="GET":
         inq = Inquiry.objects.all()
         context={"inquiries": inq}
@@ -37,10 +40,10 @@ def inquiries(request):
 
     return render(request,'staff/inquiries.html', context) 
 
-@login_required #Dima
+@login_required
 def booking_staff(request):
-    if not request.user.is_staff: #Dima
-        return HttpResponseForbidden ('Access is denied') #Dima
+    if not request.user.is_staff: 
+        return HttpResponseForbidden ('Access is denied')
     if request.method =="GET":
         bookings_list=Booking.objects.all()
         context={'bookings': bookings_list}
