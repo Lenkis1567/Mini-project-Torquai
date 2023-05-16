@@ -67,7 +67,7 @@ class ReviewsStaffListView(DataMixin, ListView):
     def get_context_data(self, *,object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         c_def = self.get_user_context(title = "")
-        context['menu'] = staff_menu
+        c_def['menu'] = staff_menu
         context = dict(list(context.items()) + list(c_def.items()))
         return context
     
